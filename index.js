@@ -14,6 +14,7 @@ app.get('/nueva-ruta', (request, response) => {
 app.get('/products', (request, response) => {
   //response.send("Hola. Estas en productos");
   response.json({
+    productId: 1,
     name: 'Producto 1',
     price: 1899,
   })
@@ -24,19 +25,41 @@ app.get('/home', (request, response) => {
 })
 
 app.get('/categorias', (request, response) => {
-  response.json({
-    title: "Usted se encuentra en categorias",
-    description: "Acá encontrarás los diversos productos para ti, agrupados en categorias"
-    /*productos: 
-      id: 1,
+  response.json([
+    {
+      categoriasId: 1,
       name: "books",
-      id: 2,
+    },
+    {
+      categoriasId: 2,
       name: "games",
-      id: 3,
+    },
+    {
+      categoriasId: 3,
       name: "courses",
-    }*/
-  });
+    }
+  ]);
 })
+
+//Se coloca : porque signfica que va a recibir un parametro. En este caso, recibe el parametro id
+app.get('/categorias/:id', (request, response) => {
+  //const id = request.params.id;
+  const { id } = request.params;
+  response.json({
+    id,
+    name: "games",
+  })
+})
+
+//Recibiendo dos parametros en el mismo url
+app.get('/categorias/:categoriasId/products/:productsId', (request, response) => {
+  const { categoriasId, productsId } = request.params;
+  response.json({
+    categoriasId,
+    productsId
+  })
+})
+
 
 app.listen(port, () => {
   console.log("El port es:" + port);
