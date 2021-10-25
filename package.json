@@ -1,0 +1,20 @@
+{
+  "name": "backend-node-api-rest-express",
+  "version": "1.0.0",
+  "description": "Un repositorio aplicando lo aprendido del curso de Backend con NodeJS con API REST con Express",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "lint": "eslint"
+  },
+  "keywords": [],
+  "author": "Luis Rodriguez - DarkusPhantom <darkusphantom13@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1"
+  }
+}
