@@ -1,4 +1,5 @@
 const express = require('express');
+const faker = require('faker');// generate massive amounts of fake data in the browser and node.js
 
 const app = express();
 const port = 3000;
@@ -12,13 +13,27 @@ app.get('/nueva-ruta', (request, response) => {
 })
 
 app.get('/products', (request, response) => {
+  const products = [];
+  const { size } = request.query;
+  const limit = size || 10;
+
+  for (let index = 0; index < limit; index++) {
+    products.push({
+      id: index+1,
+      name: faker.commerce.productName(),
+      price: parseInt(faker.commerce.price()),
+      image: faker.image.imageUrl(),
+    });
+  }
+
   //response.send("Hola. Estas en productos");
-  response.json({
-    productId: 1,
-    name: 'Producto 1',
-    price: 1899,
-  })
+  response.json(products);
 })
+
+app.get('/products/filter', (request, response) => {
+  response.send('Soy un filter');
+})
+
 
 app.get('/home', (request, response) => {
   response.send(`<h1>Usted esta en el Home. Bienvenido, usuario</h1>`);
@@ -59,6 +74,24 @@ app.get('/categorias/:categoriasId/products/:productsId', (request, response) =>
     productsId
   })
 })
+
+app.get('/users', (request, response) => {
+  const { limit, offset } = request.query;
+  if (limit && offset) {
+    response.json({
+      limit,
+      offset
+    });
+  } else {
+    response.send("No hay parametros");
+  }
+
+})
+
+//Nota
+//Los endpoints especificos deben declararsen antes de los endpoints dinamicos. Uno de los mandamientos.
+
+
 
 
 app.listen(port, () => {
