@@ -31,15 +31,21 @@ router.get('/filter', (request, response) => {
 router.get('/:id', (request, response) => {
   const { id } = request.params;
 
-  response.json({
-    id,
-    name: "Mario Kart",
-  })
+  if (id === '999') {
+    response.status(404).json({
+      message: 'not found'
+    })
+  } else {
+    response.status(200).json({
+      id,
+      name: "Mario Kart",
+    })
+  }
 })
 
 router.post('/', (request, response) => {
   const body = request.body;
-  response.json({
+  response.status(201).json({
     message: 'created',
     data: body
   });
