@@ -45,4 +45,37 @@ router.post('/', (request, response) => {
   });
 })
 
+//El patch siempre recibe un id
+router.patch('/:id', (request, response) => {
+  const body = request.body;
+  const { id } = request.params;
+
+  response.json({
+    message: 'update',
+    data: body,
+    id,
+  });
+})
+
+router.put('/:id', (request, response) => {
+  const body = request.body;
+  const { id } = request.params;
+
+  response.json({
+    message: 'update all',
+    data: body,
+    id,
+  });
+})
+
+router.delete('/:id', (request, response) => {
+  const { id } = request.params;
+
+  response.json({
+    message: 'Delete',
+    id,
+  });
+})
+
+
 module.exports = router;
