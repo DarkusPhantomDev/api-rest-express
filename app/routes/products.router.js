@@ -22,41 +22,21 @@ router.get('/:id', (request, response) => {
 
 router.post('/', (request, response) => {
   const body = request.body;
-  response.status(201).json({
-    message: 'created',
-    data: body
-  });
+  const newProducts = service.create(body);
+  response.status(201).json(newProducts);
 })
 
 router.patch('/:id', (request, response) => {
   const body = request.body;
   const { id } = request.params;
-
-  response.json({
-    message: 'update',
-    data: body,
-    id,
-  });
-})
-
-router.put('/:id', (request, response) => {
-  const body = request.body;
-  const { id } = request.params;
-
-  response.json({
-    message: 'update all',
-    data: body,
-    id,
-  });
+  const product = service.update(id,body);
+  response.json(product);
 })
 
 router.delete('/:id', (request, response) => {
   const { id } = request.params;
-
-  response.json({
-    message: 'Delete',
-    id,
-  });
+  const product = service.delete(id);
+  response.json(product);
 })
 
 
