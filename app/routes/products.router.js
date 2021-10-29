@@ -20,24 +20,29 @@ router.get('/:id', (request, response) => {
   response.json(product);
 })
 
-router.post('/', (request, response) => {
+router.post('/', async (request, response) => {
   const body = request.body;
-  const newProducts = service.create(body);
+  const newProducts = await service.create(body);
   response.status(201).json(newProducts);
 })
 
-router.patch('/:id', (request, response) => {
-  const body = request.body;
-  const { id } = request.params;
-  const product = service.update(id,body);
-  response.json(product);
+router.patch('/:id', async (request, response) => {
+  try {
+    const body = request.body;
+    const { id } = request.params;
+    const product = await service.update(id,body);
+    response.json(product);
+  } catch (error) {
+    response.status(404).json({
+      message: error.message
+    });
+  }
 })
 
-router.delete('/:id', (request, response) => {
+router.delete('/:id', async (request, response) => {
   const { id } = request.params;
-  const product = service.delete(id);
+  const product = await service.delete(id);
   response.json(product);
 })
-
 
 module.exports = router;
